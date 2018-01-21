@@ -16,19 +16,25 @@ function mapeador (){
 		return this;
 	}
 	
-	this.mostrar = function(){
-		if (!this.validar_inicializacion()){ return; }
+	this.mostrar = function(retornar){
+		retornar = (typeof(retornar) != 'undefined') ? retornar : false;
+		if (!this.validar_inicializacion(retornar)){ return; }
 		var cachetemplate = this.template;
 		var etiquetas = cachetemplate.match(/(\{+[A-z.]+\})/g);
 		for (var i = 0; i < etiquetas.length; i++){
 			var valor = this.obtener_Valor(etiquetas[i]);
 			if (!valor){
 				this.error('Error: No existe el valor ' + etiquetas[i] + ' en el objeto especificado.');
-				return;
+				return false;
 			}
 			cachetemplate = cachetemplate.replace(etiquetas[i], valor);
 		}
+		if (retornar){
+			return cachetemplate;
+		}
+
 		this.elemento.innerHTML = cachetemplate;
+		return this;
 	}
 	
 	this.obtener_Valor = function (cadena){
@@ -50,14 +56,14 @@ function mapeador (){
 	}
 	
 	
-	this.validar_inicializacion = function(){
+	this.validar_inicializacion = function(retornar){
 		if (!this.data){
 			this.error('Error: No se ha definido los datos a mapear. Debe primero llamar a la función datos pasandole el objeto cuyos datos se imprimirán.');
 			return false;
 		}else if (!this.template){
 			this.error('Error: No se ha definido el template para mostrar los datos. Debe primero llamar a la función plantilla pasandole dicho template.');
 			return false;
-		}else if (!this.elemento){
+		}else if (!this.elemento && !retornar){
 			this.error('Error: El elemento del DOM sobre el que se pintará es invalido');
 			return false;
 		}

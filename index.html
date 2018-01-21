@@ -5,43 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="js/mapeador.js"></script>
+    <script src="js/listas.js"></script>
 </head>
 <body>
     <div id = "cuerpo">
     </div>
 
-    <div id = "template" style = "display:none;">
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Rut</th>
-                <th>Edad</th>
-            </tr>
-            <tr>
-                <td>{nombre}</td>
-                <td>{apellido.letras}</td>
-                <td>{rut}</td>
-                <td>{edad}</td>
-            </tr>
-        </table>
+
+    <div id = "footer" style = "display:none;">
+        <tfoot>Esto es un pie de pagina de prueba</tfoot>
     </div>
 
     <script type = "text/javascript">
-        var template = document.getElementById("template").innerHTML;
+        var template = "<tr>"
+            +"<td style = 'border:1px #000 solid;'>{nombre}</td>"
+            +"<td style = 'border:1px #000 solid;'>{apellido}</td>"
+            +"<td style = 'border:1px #000 solid;'>{rut}</td>"
+            +"<td style = 'border:1px #000 solid;'>{edad}</td>"
+        +"</tr>";
 
-        var datos = {
+        var header = "<table style = 'border:1px #000 solid;'>"
+            +"<thead>"
+                +"<th style = 'border:1px #000 solid;'>Nombre</th>"
+                +"<th style = 'border:1px #000 solid;'>Apellido</th>"
+                +"<th style = 'border:1px #000 solid;'>Rut</th>"
+                +"<th style = 'border:1px #000 solid;'>Edad</th>"
+            +"</thead>"    
+        + "<tbody>";
+
+        var footer = "</tbody><tfoot><tr><td>Esto es un pie de pagina de prueba</td></tr></tfoot></table>";
+
+        var datos = [{
             nombre : "Jorge Isaac",
-            apellido: {
-                letras: "Vega Barrios"
-            },
+            apellido: "Vega Barrios",
             rut : "25621894-1",
             edad: "22"
-        };
+        }, {
+            nombre : "Jadugley Stefany",
+            apellido: "Lucena Rojas",
+            rut : "No tiene",
+            edad: "21"
+        }, {
+            nombre : "Angel Gabriel",
+            apellido: "Vega Fonseca",
+            rut : "No tiene, por pajuo",
+            edad : 18
+        }];
 
-        var mapa = new mapeador().datos(datos).plantilla(template).bind("cuerpo");
+        var mapa = new listas().datos(datos).plantilla(template).cabecera(header).pie(footer).bind("cuerpo");
     </script>
 </body>
 </html>
