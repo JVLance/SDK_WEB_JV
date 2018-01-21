@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/mapeador.js"></script>
+</head>
+<body>
+    <div id = "cuerpo">
+    </div>
+
+    <div id = "template" style = "display:none;">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Rut</th>
+                <th>Edad</th>
+            </tr>
+            <tr>
+                <td>{nombre}</td>
+                <td>{apellido.letras}</td>
+                <td>{rut}</td>
+                <td>{edad}</td>
+            </tr>
+        </table>
+    </div>
+
+    <script type = "text/javascript">
+        var template = document.getElementById("template").innerHTML;
+
+        var datos = {
+            nombre : "Jorge Isaac",
+            apellido: {
+                letras: "Vega Barrios"
+            },
+            rut : "25621894-1",
+            edad: "22"
+        };
+
+        var mapa = new mapeador().datos(datos).plantilla(template).bind("cuerpo");
+    </script>
+</body>
+</html>
