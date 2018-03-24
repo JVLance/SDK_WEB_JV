@@ -51,12 +51,12 @@ function Najax(){
 	this.get = function (url, params, callback){
 		params = this.prepare(params);
 		url = (params != '') ? url + '?' + params : url;
-		return (typeof (callback) == "undefined") ? this.connect("GET", url, params) : callback( this.connect("GET", url, params) );
+		return (typeof (callback) == "undefined") ? this.connect("GET", url, params) : this.connect("GET", url, params, callback);
 	};
 	
 	this.post = function (url, params, callback){
 		params = this.prepare(params);
-		return (typeof (callback) == "undefined") ? this.connect("POST", url, params) : callback( this.connect("POST", url, params) );
+		return (typeof (callback) == "undefined") ? this.connect("POST", url, params) : this.connect("POST", url, params, callback);
 	};
 	
 	this.load_script = function (route, sType, oCallback){
